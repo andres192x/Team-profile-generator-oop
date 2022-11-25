@@ -2,6 +2,9 @@
 
 // TODO: Include packages needed for this application
 const inquirer = require("inquirer")
+const generateMarkdown=require('./utils/generateMarkdown')
+
+//lib modules
 const Manager = require("./lib/manager")
 const Intern = require("./lib/intern")
 const Engineer = require("./lib/engineer")
@@ -37,6 +40,8 @@ const intern = [
     { type: "input", message: "please enter the intern's school", name: "intSchool" },
 ]
 
+
+//answers array
 const employees = []
 
 // TODO: Create a function to write README file
@@ -80,20 +85,20 @@ function mainMenu() {
                     })
             }
             else if (responses.menu == "finish") {
-                inquirer
-                .prompt(finish)
-                .then((response) => {
-                    const markdown = generateMarkdown (response)
-                fs.writeFile("./utils/index.html",markdown, function(err){console.log(err)})
-                } )
-                }
+               
                   
-                })
+                        const markdown = generateMarkdown(employees)
+                        fs.writeFile("./utils/index.html", markdown, function (err) { if (err)console.log(err) })
+                    
+            }
 
-    // .then((response) => {
-    //     const markdown = generateHtml (response)
-    // fs.writeFile("./utils/README.md",markdown, function(err){console.log(err)})
-    // } )
+        })
+
 }
 // Function call to initialize app
 init();
+
+// .then((response) => {
+    //     const markdown = generateHtml (response)
+    // fs.writeFile("./utils/README.md",markdown, function(err){console.log(err)})
+    // } )
